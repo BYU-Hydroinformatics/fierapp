@@ -1,0 +1,9 @@
+body, #app-content, #inner-app-content, #outer-container, #map {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+#inner-app-content {
+    padding: 0;
+    height: 100%;
+}
