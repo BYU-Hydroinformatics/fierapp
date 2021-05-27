@@ -13,7 +13,9 @@
 {% block app_title %}{{ tethys_app.name }}{% endblock %}
 
 {% block app_navigation_items %}
-<button class="btn btn-primary" style="width: 100%" onclick="MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/fierpy_example_water_output.nc', 'water', 'Flood Extents', true)">Add Example Dataset</button>
+<button class="btn btn-primary" style="width: 100%" onclick="MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/servir/example_forecast_latest.nc', 'max', 'Maximum Extents', true)">View Max Extents</button>
+<button class="btn btn-primary" style="width: 100%" onclick="MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/servir/example_forecast_latest.nc', 'mean', 'Average Extents', true)">View Average Extents</button>
+<button class="btn btn-primary" style="width: 100%" onclick="MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/servir/example_forecast_latest.nc', 'proba', 'Probabilistic Extents', true)">View Probabilistic Extents</button>
 <br>
 <label for="wms-layer-opacity">Layer Opacity</label>
 <input type="range" min="0" max="1" id="wms-layer-opacity" step=".05" value="1">

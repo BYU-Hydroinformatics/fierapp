@@ -7,3 +7,6 @@ body, #app-content, #inner-app-content, #outer-container, #map {
     padding: 0;
     height: 100%;
 }
+#mouse-position {
+    color: whitesmoke;
+}

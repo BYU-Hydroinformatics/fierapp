@@ -47,7 +47,6 @@ const MapApp = (function () {
         },
     }
     // WMS Buttons and Inputs
-    const COLOR_SCHEME = 'boxfill/rainbow'
     const INPUT_WMS_OPAC = document.getElementById("wms-layer-opacity")
 
     let LAYER_WMS = null
@@ -56,7 +55,7 @@ const MapApp = (function () {
 
     let legendURL
     const legend = L.control({position: 'bottomright'})
-    legend.onAdd = (endpoint, layer) => {
+    legend.onAdd = () => {
         let div = L.DomUtil.create('div')
         div.innerHTML = `<img src="${legendURL}" alt="legend" style="width:100% float:right">`
         return div
@@ -79,6 +78,7 @@ const MapApp = (function () {
         map.on("mousemove", event => {
             latLonDivElement.innerHTML = `Lat: ${event.latlng.lat.toFixed(5)}, Lon: ${event.latlng.lng.toFixed(5)}`
         })
+        document.getElementById("wms-layer-opacity").addEventListener("change", () => {if (LAYER_WMS) LAYER_WMS.setOpacity(document.getElementById("wms-layer-opacity").value)})
     }
 
     const addWMS = function (url, layer, title, time) {
@@ -94,10 +94,10 @@ const MapApp = (function () {
             crossOrigin: false,
             useCache: true,
             opacity: `${INPUT_WMS_OPAC.value}`,
-            colorscalerange: '0,1',
-            styles: COLOR_SCHEME,
+            colorscalerange: layer === 'proba' ? '0,100' : '0,1',
+            styles: 'boxfill/bluescale',
         }
-        legendURL = `${url}?REQUEST=GetLegendGraphic&LAYER=${layer}&PALETTE=${COLOR_SCHEME}&COLORSCALERANGE=0,1`
+        legendURL = `${url}?REQUEST=GetLegendGraphic&LAYER=${layer}&PALETTE=bluescale&COLORSCALERANGE=${layer === 'proba' ? '0,100' : '0,1'}`
         if (time) LAYER_WMS = L.timeDimension.layer.wms(L.tileLayer.wms(url, wmsOptions), TIME_LAYER_CONFIGS).addTo(map)
         else LAYER_WMS = L.tileLayer.wms(url, wmsOptions).addTo(map)
         layerControl.addOverlay(LAYER_WMS, (title ? title : layer))
