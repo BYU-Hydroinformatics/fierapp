@@ -13,10 +13,26 @@
 {% block app_title %}{{ tethys_app.name }}{% endblock %}
 
 {% block app_navigation_items %}
-<button class="btn btn-primary" style="width: 100%" onclick="MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/servir/example_forecast_latest.nc', 'max', 'Maximum Extents', true)">View Max Extents</button>
-<button class="btn btn-primary" style="width: 100%" onclick="MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/servir/example_forecast_latest.nc', 'mean', 'Average Extents', true)">View Average Extents</button>
-<button class="btn btn-primary" style="width: 100%" onclick="MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/servir/example_forecast_latest.nc', 'proba', 'Probabilistic Extents', true)">View Probabilistic Extents</button>
-<br>
+<li class="separator"></li>
+<div class="form-outline">
+        <label class="form-label" id="area_p" for='typeSelect'>Country</label>
+        <select type = 'select' class="form-control" id = "area_id">
+                <option value="1">Bangladesh</option>
+                <option value="2">Israel</option>
+                <option value="3">China</option>
+        </select>
+<div>
+<p class="separator"></p>
+<div class="form-outline">
+        <label class="form-label" id="extent_p" for='typeSelect'>Extent</label>
+        <select type = 'select' class="form-control" id = "extent_id">
+                <option value="1" >Choose an Extent</option>
+                <option value="1" >Max Extents</option>
+                <option value="2" >Average Extents</option>
+                <option value="3" >Probabilistic Extents</option>
+        </select>
+<div>
+<p class="separator"></p>
 <label for="wms-layer-opacity">Layer Opacity</label>
 <input type="range" min="0" max="1" id="wms-layer-opacity" step=".05" value="1">
 {% endblock %}

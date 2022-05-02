@@ -2,19 +2,22 @@
 copyright Riley Hales, RCH Engineering, 2021
 All rights reserved
  */
+
+var controlL;
+var map;
+
 const MapApp = (function () {
     "use strict"
 
     // Basemaps
-    const URL_OPENSTREETMAP = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    const ATTRIBUTION_OPEN_STREET_MAP = {attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}
+    const URL_OPENSTREETMAP = 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png'
+    const URL_LIGHTOPENSTREETMAP = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+    const ATTRIBUTION_OPEN_STREET_MAP = {attribution: '©OpenStreetMap, ©CartoDB'}
     const basemaps = {
-        "Open Street Maps": L.tileLayer(URL_OPENSTREETMAP, ATTRIBUTION_OPEN_STREET_MAP),
-        "ESRI World Imagery": L.esri.basemapLayer('Imagery'),
-        "ESRI Labeled World Imagery": L.layerGroup([L.esri.basemapLayer('Imagery'), L.esri.basemapLayer('ImageryLabels')]),
-        "ESRI Terrain": L.esri.basemapLayer('Terrain'),
-        "ESRI Labeled Terrain": L.layerGroup([L.esri.basemapLayer('Terrain'), L.esri.basemapLayer('ImageryLabels')]),
+        "Basemap": L.tileLayer(URL_OPENSTREETMAP, ATTRIBUTION_OPEN_STREET_MAP),
+        "Labled Basemap": L.tileLayer(URL_LIGHTOPENSTREETMAP, ATTRIBUTION_OPEN_STREET_MAP),
     }
+
     // URLs and Paths
     const DIV_MAP = "map"
     // Config JSONS
@@ -46,6 +49,7 @@ const MapApp = (function () {
             speedStep: 1,
         },
     }
+
     // WMS Buttons and Inputs
     const INPUT_WMS_OPAC = document.getElementById("wms-layer-opacity")
 
@@ -57,7 +61,7 @@ const MapApp = (function () {
     const legend = L.control({position: 'bottomright'})
     legend.onAdd = () => {
         let div = L.DomUtil.create('div')
-        div.innerHTML = `<img src="${legendURL}" alt="legend" style="width:100% float:right">`
+        div.innerHTML = `<img src="${legendURL}" alt="legend" id="legend_id">`
         return div
     }
     const latLonPopUp = L.control({position: 'bottomleft'})
@@ -110,4 +114,19 @@ const MapApp = (function () {
     }
 
 }())
+
 MapApp.init()
+
+$('#extent_id').change(function (){
+    extent = $('#extent_id').val();
+    if (extent = '1'){
+        MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/servir/example_forecast_latest.nc', 'max', 'Maximum Extents', true)
+    }
+    else if (extent = '2'){
+        MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/servir/example_forecast_latest.nc', 'mean', 'Average Extents', true)
+    }
+    else {
+        MapApp.addWMS('https://tethys-staging.byu.edu/thredds/wms/data/servir/example_forecast_latest.nc', 'proba', 'Probabilistic Extents', true)
+    }
+})
+

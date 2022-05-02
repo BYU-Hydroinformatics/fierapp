@@ -11,7 +11,7 @@ class Fierapp(TethysAppBase):
     icon = 'fierapp/images/icon.gif'
     package = 'fierapp'
     root_url = 'fierapp'
-    color = '#27ae60'
+    color = '#7B9E7F'
     description = ''
     tags = ''
     enable_feedback = False
